@@ -94,8 +94,9 @@ alias berg-m='bundle exec rails g migration'
 alias ber-db-m='bundle exec rake db:migrate'
 
 # ------------------------------
-# kubectl Alias (Kubernetes)
+# kubectl (Kubernetes)
 # ------------------------------
+# Aliases
 alias kube='kubectl'
 alias kube-prod='kubectl --context production'
 alias kube-staging='kubectl --context staging'
@@ -114,3 +115,12 @@ alias kube-d-p='kubectl delete pod'
 alias kube-d-n='kubectl delete namespaces'
 alias kube-d-d='kubectl delete deployments'
 alias kube-watch='watch kubectl get pods --namespace'
+
+# Functions
+kube-run-bash() {
+  kubectl --context $1 --namespace $2 exec -it $3 /bin/bash
+}
+
+kube-snapshot-log() {
+  kubectl logs snapshot-controller-d6d84fd85-rd8pn -n kube-system -c $1
+}
