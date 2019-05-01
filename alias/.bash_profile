@@ -82,3 +82,13 @@ alias gstd='git stash drop'
 alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash save'
+
+# ----------------------
+# Bundle Alias (RUBY)
+# ----------------------
+alias b="bundle"
+alias be="bundle exec"
+alias ber="bundle exec rails"
+alias berc="bundle exec rails c"
+alias berg-m="bundle exec rails g migration"
+alias ber-db-m="bundle exec rake db:migrate"
