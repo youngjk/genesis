@@ -83,12 +83,34 @@ alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash save'
 
-# ----------------------
-# Bundle Alias (RUBY)
-# ----------------------
-alias b="bundle"
-alias be="bundle exec"
-alias ber="bundle exec rails"
-alias berc="bundle exec rails c"
-alias berg-m="bundle exec rails g migration"
-alias ber-db-m="bundle exec rake db:migrate"
+# ------------------------------
+# bundle Alias (Ruby)
+# ------------------------------
+alias b='bundle'
+alias be='bundle exec'
+alias ber='bundle exec rails'
+alias berc='bundle exec rails c'
+alias berg-m='bundle exec rails g migration'
+alias ber-db-m='bundle exec rake db:migrate'
+
+# ------------------------------
+# kubectl Alias (Kubernetes)
+# ------------------------------
+alias kube='kubectl'
+alias kube-prod='kubectl --context production'
+alias kube-staging='kubectl --context staging'
+alias kube-config='kubectl config view'
+alias kube-ctxt='kubectl config get-contexts'
+alias kube-c-ctxt='kubectl config current-context'
+alias kube-u-ctxt='kubectl config use-context'
+alias kube-g='kubectl get'
+alias kube-g-s='kubectl get services'
+alias kube-g-p='kubectl get pods'
+alias kube-g-d='kubectl get deployment'
+alias kube-g-n='kubectl get namespaces'
+alias kube-g-vs='kubectl get volumesnapshots'
+alias kube-d-s='kubectl delete service'
+alias kube-d-p='kubectl delete pod'
+alias kube-d-n='kubectl delete namespaces'
+alias kube-d-d='kubectl delete deployments'
+alias kube-watch='watch kubectl get pods --namespace'
