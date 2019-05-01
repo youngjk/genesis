@@ -1,2 +1,3 @@
 # genesis
-Start of bash scripting: Entrance to Platform
+
+Collection of useful shell commands and functions.
