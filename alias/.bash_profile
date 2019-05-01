@@ -41,13 +41,13 @@ chrome() {
   /usr/bin/open -a "/Applications/Google Chrome.app" --args 'http://google.com/'
 }
 
-# mkdir + cd into dir
+# mkdir + cd
 mkcd() {
   mkdir -p "$1" && cd "$1"
 }
 
 # ----------------------
-# Git Aliases
+# Git
 # ----------------------
 alias ga='git add'
 alias gaa='git add .'
@@ -84,7 +84,7 @@ alias gstp='git stash pop'
 alias gsts='git stash save'
 
 # ------------------------------
-# bundle Alias (Ruby)
+# bundle (Ruby)
 # ------------------------------
 alias b='bundle'
 alias be='bundle exec'
@@ -96,7 +96,6 @@ alias ber-db-m='bundle exec rake db:migrate'
 # ------------------------------
 # kubectl (Kubernetes)
 # ------------------------------
-# Aliases
 alias kube='kubectl'
 alias kube-prod='kubectl --context production'
 alias kube-staging='kubectl --context staging'
