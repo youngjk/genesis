@@ -124,3 +124,16 @@ kube-run-bash() {
 kube-snapshot-log() {
   kubectl logs snapshot-controller-d6d84fd85-rd8pn -n kube-system -c $1
 }
+
+# ----------------------
+# helm
+# ----------------------
+alias helm-prod="helm --kube-context production"
+alias helm-staging="helm --kube-context staging"
+alias helm-d="helm delete --purge"
+
+# secrets
+alias helm-s-clean="helm secrets clean"
+alias helm-s-dec="helm secrets dec"
+alias helm-s-enc="helm secrets enc"
+alias helm-s-edit="helm secrets edit"
