@@ -136,3 +136,15 @@ alias helm-s-clean="helm secrets clean"
 alias helm-s-dec="helm secrets dec"
 alias helm-s-enc="helm secrets enc"
 alias helm-s-edit="helm secrets edit"
+
+# ----------------------
+# gcloud
+# ----------------------
+alias gcl 'gcloud'
+alias gcl-prod='gcloud container clusters get-credentials unii-prod-east --zone us-east4-a --project striped-buckeye-163915'
+alias gcl-staging='gcloud container clusters get-credentials unii-staging --zone us-east4-a --project unii-staging'
+alias gcl-c-delete='gcloud container clusters delete '
+alias gcl-c-create='gcloud container clusters create '
+alias gcl-c-info='gcloud container clusters describe '
+alias gcl-g-i='gcloud compute instances list'
+alias gcl-d-p="gcloud docker -- push"
