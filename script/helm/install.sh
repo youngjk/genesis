@@ -10,7 +10,7 @@ echo -e "Release Name: "
 read release
 
 # name of kube context/project
-echo -e "$(kubectl config get-contexts | tail -n +2 | awk '{print $2}')"
+echo -e "$(gcloud projects list | tail -n +2 | awk '{print $2}')"
 echo -e "Context:"
 read context
 
