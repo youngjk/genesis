@@ -37,5 +37,5 @@ if [[ $(ls ~/Universe/unii-helm-charts/helm-values/$project | grep "secrets.yaml
   helm install ~/Universe/unii-helm-charts/charts/"$project" --name "$release" --kube-context "$context" --namespace "$namespace" --set env="$context" -f ~/Universe/unii-helm-charts/helm-values/"$project"/secrets.yaml.dec --set image.tag="$sha"
 else
   helm secrets dec ~/Universe/unii-helm-charts/helm-values/"$project"/"$context"/secrets.yaml;
-  helm install ~/Universe/unii-helm-charts/charts/"$project" --name "$release" --kube-context "$context" --namespace "$namespace" --set env="$context" -f ~/Universe/unii-helm-charts/helm-values/"$project"/"$context"/secrets.yaml.dec --set image.tag="$sha"
+  helm install ~/Universe/unii-helm-charts/charts/"$project" --name "$release" --kube-context "$context" --namespace "$namespace" --set env="$context" -f ~/Universe/unii-helm-charts/helm-values/"$project"/"$context"/secrets.yaml.dec -f ~/Universe/unii-helm-charts/helm-values/"$project"/"$context"/values.yaml --set image.tag="$sha"
 fi
