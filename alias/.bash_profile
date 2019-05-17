@@ -1,5 +1,5 @@
 # ----------------------
-# Useful Hack Alias
+# A. Useful Hack Alias
 # ----------------------
 alias edit-bp='code ~/.bash_profile'
 alias fuck='lsof -i tcp:4567 -i tcp:1979 -i tcp:1234 -i tcp:4888 -i tcp:4200 -i tcp:4201 -i tcp:1080 -i tcp:1025 -i tcp:6379 -i tcp:5432 -i tcp:8085 -i tcp:27017 | tr -s ' ' | tail -n+2 | cut -d' ' -f 2 | xargs kill'
@@ -11,7 +11,7 @@ alias shutdown='sudo /sbin/shutdown'
 alias chrome='/opt/google/chrome/chrome'
 
 # ----------------------
-# General Commands
+# B. General Commands
 # ----------------------
 # ls
 alias ls='ls -FG'
@@ -47,7 +47,7 @@ mkcd() {
 }
 
 # ----------------------
-# Git
+# C. Git - Alias
 # ----------------------
 alias ga='git add'
 alias gaa='git add .'
@@ -84,7 +84,7 @@ alias gstp='git stash pop'
 alias gsts='git stash save'
 
 # ------------------------------
-# bundle (Ruby)
+# D. Bundle (Ruby)
 # ------------------------------
 alias b='bundle'
 alias be='bundle exec'
@@ -94,7 +94,7 @@ alias berg-m='bundle exec rails g migration'
 alias ber-db-m='bundle exec rake db:migrate'
 
 # ------------------------------
-# kubectl (Kubernetes)
+# E-1. Kubectl (Kubernetes) - Alias
 # ------------------------------
 alias kube='kubectl'
 alias kube-prod='kubectl --context production'
@@ -115,7 +115,9 @@ alias kube-d-n='kubectl delete namespaces'
 alias kube-d-d='kubectl delete deployments'
 alias kube-watch='watch kubectl get pods --namespace'
 
-# Functions
+# ------------------------------
+# E-2. Kubectl (Kubernetes) - Functions
+# ------------------------------
 kube-run-bash() {
   kubectl --context $1 --namespace $2 exec -it $3 /bin/bash
 }
@@ -124,21 +126,35 @@ kube-snapshot-log() {
   kubectl logs snapshot-controller-d6d84fd85-rd8pn -n kube-system -c $1
 }
 
+kube-tesseract() {
+  if [[ -z "$1" ]]; then
+    echo "Please enter tesseract version"
+  elif [[ "$1" == "v1" ]]; then
+    local pod=$(kubectl --context staging --namespace default get pods | grep -o "tesseract-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1 )
+    kubectl --context staging --namespace default exec -it $pod /bin/bash
+  elif [[ "$1" == "v2" ]]; then
+    local pod=$(kubectl --context staging --namespace tesseract-v2 get pods | grep -o "tesseract-v2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1 )
+    kubectl --context staging --namespace tesseract-v2 exec -it $pod /bin/bash
+  fi
+}
+
 # ----------------------
-# helm
+# F-1. Helm - Alias
 # ----------------------
 alias helm-prod="helm --kube-context production"
 alias helm-staging="helm --kube-context staging"
 alias helm-d="helm delete --purge"
 
-# secrets
+# ----------------------
+# F-2. Helm Secrets - Alias
+# ----------------------
 alias helm-s-clean="helm secrets clean"
 alias helm-s-dec="helm secrets dec"
 alias helm-s-enc="helm secrets enc"
 alias helm-s-edit="helm secrets edit"
 
 # ----------------------
-# gcloud
+# G. Gcloud - Alias
 # ----------------------
 alias gcl 'gcloud'
 alias gcl-prod='gcloud container clusters get-credentials unii-prod-east --zone us-east4-a --project striped-buckeye-163915'
@@ -148,3 +164,13 @@ alias gcl-c-create='gcloud container clusters create '
 alias gcl-c-info='gcloud container clusters describe '
 alias gcl-g-i='gcloud compute instances list'
 alias gcl-d-p="gcloud docker -- push"
+
+# ----------------------
+# H. Fluxctl - Alias
+# ----------------------
+alias flux='fluxctl'
+alias flux-l-w='fluxctl list workloads'
+alias flux-l-i='fluxctl list images'
+alias flux-l-c='fluxctl list controllers'
+alias flux-s='fluxctl sync'
+alias flux-r='fluxctl release'
