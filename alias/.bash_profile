@@ -114,6 +114,7 @@ alias kube-d-p='kubectl delete pod'
 alias kube-d-n='kubectl delete namespaces'
 alias kube-d-d='kubectl delete deployments'
 alias kube-watch='watch kubectl get pods --namespace'
+alias kube-log='kubectl logs -f'
 
 # ------------------------------
 # E-2. Kubectl (Kubernetes) - Functions
@@ -124,6 +125,10 @@ kube-run-bash() {
 
 kube-snapshot-log() {
   kubectl logs snapshot-controller-d6d84fd85-rd8pn -n kube-system -c $1
+}
+
+kube-pod-log() {
+  kubectl logs -f -n $1 $2
 }
 
 kube-tesseract() {
