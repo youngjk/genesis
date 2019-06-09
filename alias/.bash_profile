@@ -127,8 +127,14 @@ kube-snapshot-log() {
   kubectl logs snapshot-controller-d6d84fd85-rd8pn -n kube-system -c $1
 }
 
-kube-pod-log() {
-  kubectl logs -f -n $1 $2
+kube-log() {
+  if [[ $# -lt 2 ]]; then
+    local pod=$(kubectl get --all-namespace pods | grep -o "$1-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+ " | head -1)
+    kubectl logs $pod
+  elif [[ $# -eq 2 ]]; then
+    local pod=$(kubectl get pods -n $1 | grep -o "$2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+ " | head -1)
+    kubectl logs -n $1 $pod
+  fi
 }
 
 kube-tesseract() {
