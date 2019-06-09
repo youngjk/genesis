@@ -171,11 +171,17 @@ alias gcl-g-i='gcloud compute instances list'
 alias gcl-d-p="gcloud docker -- push"
 
 # ----------------------
-# H. Fluxctl - Alias
+# H-1. Fluxctl - Alias
 # ----------------------
 alias flux='fluxctl'
 alias flux-l-w='fluxctl list workloads'
 alias flux-l-i='fluxctl list images'
-alias flux-l-c='fluxctl list controllers'
 alias flux-s='fluxctl sync'
 alias flux-r='fluxctl release'
+
+# ----------------------
+# H-2. Fluxctl - Alias
+# ----------------------
+function flux-list-hr() {
+  fluxctl list-images --namespace $1 --workload=$1:helmrelease/$2
+}
