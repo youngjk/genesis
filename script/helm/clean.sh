@@ -31,9 +31,11 @@ echo "${HELM_NAMESPACES[@]}"
 # Compute and return list of orphaned release namespaces
 DESTROYED_NAMESPACES=()
 for i in $HELM_NAMESPACES; do
-  if [[ ! "${KUBE_NAMESPACES[@]} =~ $i" ]]; then
-    DESTROYED_NAMESPACES+=($i)
-  fi
+  found=false
+  for j in $KUBE_NAMESPACES; do
+    [[ $i == $j ]] && found=true
+  done
+    [[ "$found" = true ]] || DESTROYED_NAMESPACES+=($i)
 done
 
 echo -e "$SEPERATOR"
