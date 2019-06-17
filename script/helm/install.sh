@@ -1,41 +1,59 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
+## install.sh is a script that installs selected helm chart deployment
+
+# Fixed variables
 SEPERATOR="----------------------------------------"
 
-# name of helm chart/deployment
+# Fetch chart names and prompt user to select project to deploy
 echo -e "$SEPERATOR"
 echo -e "$(ls ~/Universe/unii-helm-charts/charts)"
-echo -e "Project: "
+echo "Project: "
 read project
 
-# name of release/deployment
+# Prompt user for deployment name
 echo -e "$SEPERATOR"
-echo -e "Release Name: "
+echo "Release Name: "
 read release
 
-# name of kube context/project
+# Prompt user for kube context
 echo -e "$SEPERATOR"
 echo -e "$(kubectl config get-contexts | tail -n +2 | awk '{print $2}')"
-echo -e "Context:"
+echo "Context: "
 read context
 
-# name of namespace
+# Prompt user for namespace
 echo -e "$SEPERATOR"
-echo -e "Namespace:"
+echo "Namespace: "
 read namespace
 
-# sha of release/deployment
+# Prompt user for sha of project to deploy
 echo -e "$SEPERATOR"
-echo -e "Project sha:"
+echo "Project sha: "
 read sha
 
+# Start helm install to deploy project with specified arguments
 echo -e "$SEPERATOR"
 echo -e "Starting Helm install"
 helm secrets clean ~/Universe/unii-helm-charts/helm-values/"$project";
 if [[ $(ls ~/Universe/unii-helm-charts/helm-values/$project | grep "secrets.yaml") ]]; then
   helm secrets dec ~/Universe/unii-helm-charts/helm-values/"$project"/secrets.yaml;
-  helm install ~/Universe/unii-helm-charts/charts/"$project" --name "$release" --kube-context "$context" --namespace "$namespace" --set env="$context" -f ~/Universe/unii-helm-charts/helm-values/"$project"/secrets.yaml.dec --set image.tag="$sha"
-else
+  helm install ~/Universe/unii-helm-charts/charts/"$project" \
+    --name "$release" \
+    --kube-context "$context" \
+    --namespace "$namespace" \
+    --set env="$context" \
+    -f ~/Universe/unii-helm-charts/helm-values/"$project"/secrets.yaml.dec \
+    -f ~/Universe/unii-helm-charts/helm-values/"$project"/values.yaml \
+    --set image.tag="$sha"
+elif [[ $(ls ~/Universe/unii-helm-charts/helm-values/$project/$context | grep "secrets.yaml") ]]; then
   helm secrets dec ~/Universe/unii-helm-charts/helm-values/"$project"/"$context"/secrets.yaml;
-  helm install ~/Universe/unii-helm-charts/charts/"$project" --name "$release" --kube-context "$context" --namespace "$namespace" --set env="$context" -f ~/Universe/unii-helm-charts/helm-values/"$project"/"$context"/secrets.yaml.dec -f ~/Universe/unii-helm-charts/helm-values/"$project"/"$context"/values.yaml --set image.tag="$sha"
+  helm install ~/Universe/unii-helm-charts/charts/"$project" \
+    --name "$release" \
+    --kube-context "$context" \
+    --namespace "$namespace" \
+    --set env="$context" \
+    -f ~/Universe/unii-helm-charts/helm-values/"$project"/"$context"/secrets.yaml.dec \
+    -f ~/Universe/unii-helm-charts/helm-values/"$project"/"$context"/values.yaml \
+    --set image.tag="$sha"
 fi
