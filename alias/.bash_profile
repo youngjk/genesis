@@ -109,10 +109,14 @@ alias kube-g-p='kubectl get pods'
 alias kube-g-d='kubectl get deployment'
 alias kube-g-n='kubectl get namespaces'
 alias kube-g-vs='kubectl get volumesnapshots'
+alias kube-g-hr='kubectl get helmreleases'
+alias kube-g-ssec='kubectl get sealedsecrets'
 alias kube-d-s='kubectl delete service'
 alias kube-d-p='kubectl delete pod'
 alias kube-d-n='kubectl delete namespaces'
 alias kube-d-d='kubectl delete deployments'
+alias kube-d-hr='kubectl delete helmreleases'
+alias kube-d-ssec='kubectl delete sealedsecrets'
 alias kube-watch='watch kubectl get pods --namespace'
 alias kube-log='kubectl logs -f'
 
@@ -190,4 +194,17 @@ alias flux-r='fluxctl release'
 # ----------------------
 function flux-list-hr() {
   fluxctl list-images --namespace $1 --workload=$1:helmrelease/$2
+}
+
+function flux-redeploy() {
+  version=0.9.5
+
+  if [[ $# -ge 2 ]]; then
+    version=$2
+  fi
+
+  helm upgrade flux --namespace=flux --recreate-pods --version $version \
+    -f ~/Universe/unii-helm-charts/flux/values.yaml \
+    -f ~/Universe/unii-helm-charts/flux/$1.yaml \
+    weaveworks/flux
 }
