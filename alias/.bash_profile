@@ -169,25 +169,21 @@ alias kube-d-d='kubectl delete deployments'
 alias kube-d-hr='kubectl delete helmreleases'
 alias kube-d-ssec='kubectl delete sealedsecrets'
 alias kube-watch='watch kubectl get pods --namespace'
-alias kube-log='kubectl logs -f'
 
 # ------------------------------
 # E-2. Kubectl (Kubernetes) - Functions
 # ------------------------------
-kube-run-bash() {
-  kubectl --context $1 --namespace $2 exec -it $3 /bin/bash
-}
-
-kube-snapshot-log() {
-  kubectl logs snapshot-controller-d6d84fd85-rd8pn -n kube-system -c $1
+kube-ssh() {
+  pod=$(kubectl get pod --namespace $1 | grep -o "$2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | awk '{print $1}')
+  kubectl --namespace $1 exec -it $pod /bin/bash
 }
 
 kube-log() {
   if [[ $# -lt 2 ]]; then
-    local pod=$(kubectl get --all-namespace pods | grep -o "$1-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+ " | head -1)
+    pod=$(kubectl get --all-namespace pods | grep -o "$1-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+ " | head -1)
     kubectl logs $pod
   elif [[ $# -eq 2 ]]; then
-    local pod=$(kubectl get pods -n $1 | grep -o "$2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+ " | head -1)
+    pod=$(kubectl get pods -n $1 | grep -o "$2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+ " | head -1)
     kubectl logs -n $1 $pod
   fi
 }
@@ -196,10 +192,10 @@ kube-tesseract() {
   if [[ -z "$1" ]]; then
     echo "Please enter tesseract version"
   elif [[ "$1" == "v1" ]]; then
-    local pod=$(kubectl --context staging --namespace default get pods | grep -o "tesseract-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1 )
+    pod=$(kubectl --context staging --namespace default get pods | grep -o "tesseract-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1 )
     kubectl --context staging --namespace default exec -it $pod /bin/bash
   elif [[ "$1" == "v2" ]]; then
-    local pod=$(kubectl --context staging --namespace tesseract-v2 get pods | grep -o "tesseract-v2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1 )
+    pod=$(kubectl --context staging --namespace tesseract-v2 get pods | grep -o "tesseract-v2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1 )
     kubectl --context staging --namespace tesseract-v2 exec -it $pod /bin/bash
   fi
 }
