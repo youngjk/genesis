@@ -11,7 +11,7 @@ alias shutdown='sudo /sbin/shutdown'
 alias chrome='/opt/google/chrome/chrome'
 
 # ----------------------
-# B. General Commands
+# B-1. General Commands
 # ----------------------
 # ls
 alias ls='ls -FG'
@@ -47,6 +47,56 @@ mkcd() {
 }
 
 # ----------------------
+# B-2. General Functions
+# ----------------------
+service-console() {
+  if [[ "$1" == "discover" ]]; then
+    if [[ -z "$2" ]]; then
+      echo "Please enter a namespace"
+    elif [[ "$2" == "staging" ]]; then
+      pod=$(kubectl --context staging get pods | grep -o "discover-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      kubectl --context staging exec $pod -it -- bash -il
+    elif [[ "$2" == "production" ]]; then
+      pod=$(kubectl --context production get pods | grep -o "discover-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      kubectl --context production exec $pod -it -- bash -il
+    else
+      local pod=$(kubectl --context staging --namespace $2 get pods | grep -o "$2-discover-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      kubectl --context staging --namespace $2 exec $pod -it -- bash -il
+    fi
+  elif [[ "$1" == "web" ]]; then
+    if [[ -z "$2" ]]; then
+      echo "Please enter a namespace"
+    elif [[ "$2" == "staging" ]]; then
+      cd ~/Universe/devops
+      ./attach.sh web staging bundle exec rails c
+      cd -
+    elif [[ "$2" == "production" ]]; then
+      cd ~/Universe/devops
+      ./attach.sh web production bundle exec rails c
+      cd -
+    else
+      local pod=$(kubectl --context staging --namespace $2 get pods | grep -o "$2-web-api-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+")
+      kubectl --context staging --namespace $2 exec $pod -it -- bash -il
+    fi
+  elif [[ "$1" == "boxoffice" ]]; then
+    if [[ -z "$2" ]]; then
+      echo "Please enter a namespace"
+    elif [[ "$2" == "staging" ]]; then
+      pod=$(kubectl --context staging get pods | grep -o "boxoffice-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      kubectl --context staging exec $pod -it -- bash -il
+    elif [[ "$2" == "production" ]]; then
+      pod=$(kubectl --context production get pods | grep -o "boxoffice-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      kubectl --context production exec $pod -it -- bash -il
+    else
+      local pod=$(kubectl --context staging --namespace $2 get pods | grep -o "$2-boxoffice-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      kubectl --context staging --namespace $2 exec $pod -it -- bash -il
+    fi
+  else
+    echo "Please enter a service: web / boxoffice / discover"
+  fi
+}
+
+# ----------------------
 # C. Git - Alias
 # ----------------------
 alias ga='git add'
@@ -72,6 +122,7 @@ alias gm='git merge --no-ff'
 alias gma='git merge --abort'
 alias gmc='git merge --continue'
 alias gp='git pull'
+alias gpush='git push'
 alias gpr='git pull --rebase'
 alias gr='git rebase'
 alias gs='git status'
@@ -159,6 +210,9 @@ kube-tesseract() {
 alias helm-prod="helm --kube-context production"
 alias helm-staging="helm --kube-context staging"
 alias helm-d="helm delete --purge"
+alias helm-l="helm list --max"
+alias helm-h="helm history --max 10"
+alias helm-rb="helm rollback"
 
 # ----------------------
 # F-2. Helm Secrets - Alias
