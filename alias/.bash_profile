@@ -246,15 +246,18 @@ function flux-list-hr() {
   fluxctl list-images --namespace $1 --workload=$1:helmrelease/$2
 }
 
-function flux-redeploy() {
-  version=0.9.5
+function flux-upgrade() {
+  version=0.11.0
 
   if [[ $# -ge 2 ]]; then
     version=$2
   fi
 
-  helm upgrade flux --namespace=flux --recreate-pods --version $version \
+  helm upgrade flux \
+    --namespace flux \
+    --recreate-pods \
+    --version $version \
     -f ~/Universe/unii-helm-charts/flux/values.yaml \
     -f ~/Universe/unii-helm-charts/flux/$1.yaml \
-    weaveworks/flux
+    fluxcd/flux
 }
