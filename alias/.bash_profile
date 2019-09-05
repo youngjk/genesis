@@ -240,7 +240,7 @@ alias flux-s='fluxctl sync'
 alias flux-r='fluxctl release'
 
 # ----------------------
-# H-2. Fluxctl - Alias
+# H-2. Fluxctl - Functions
 # ----------------------
 function flux-list-hr() {
   fluxctl list-images --namespace $1 --workload=$1:helmrelease/$2
@@ -261,3 +261,19 @@ function flux-upgrade() {
     -f ~/Universe/unii-helm-charts/flux/$1.yaml \
     fluxcd/flux
 }
+
+# ----------------------
+# I-1. Docker - Alias
+# ----------------------
+alias dk='docker'
+alias dkv='docker version'
+alias dkps='docker ps'
+alias dkpush='docker push'
+alias dkpull='docker pull'
+alias dktag='docker tag'
+alias dkkill='docker kill'
+alias dkrm='docker rm'
+alias dkrmi='docker rmi'
+alias dkrun='docker run'
+alias dki='docker images'
+alias dks='docker services'
