@@ -277,3 +277,16 @@ alias dkrmi='docker rmi'
 alias dkrun='docker run'
 alias dki='docker images'
 alias dks='docker services'
+
+# ----------------------
+# I-2. Docker - Function
+# ----------------------
+dk-clean-i() { docker rmi -f $(docker images -a -q); }
+dk-clean-c() { docker rm -f $(docker ps -a -q); }
+dk-run() { docker run -it $1 /bin/bash; }
+dk-exec() { docker exec -it $1 /bin/bash; }
+
+dk-clean-all() {
+  docker-clean-i;
+  docker-clean-c
+}
