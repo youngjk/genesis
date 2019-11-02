@@ -10,10 +10,11 @@ HELM_VALUES_PATH=~/Universe/unii-helm-charts/helm-values
 # Fetch chart names and prompt user to select project to deploy
 echo -e "$SEPERATOR"
 echo -e $(ls $HELM_CHARTS_PATH) | tr ' ' '\n'
-echo "Project: "
-read project
+echo "Helm Chart: "
+read chart
+
 # Check if project exists
-if [[ ! $(ls $HELM_CHARTS_PATH/$project) ]]; then
+if [[ ! $(ls $HELM_CHARTS_PATH/$chart) ]]; then
   exit 1
 fi
 
@@ -41,20 +42,23 @@ read sha
 # Determine secrets path if it exists
 echo -e "$SEPERATOR"
 helm secrets clean $HELM_VALUES_PATH;
-if [[ $(ls $HELM_VALUES_PATH/$project | grep "secrets.yaml") ]]; then
-  helm secrets dec $HELM_VALUES_PATH/$project/"secrets.yaml"
-  secrets_path=$HELM_VALUES_PATH/$project/secrets.yaml.dec
-elif [[ $(ls $HELM_VALUES_PATH/$project/$context | grep "secrets.yaml") ]]; then
-  helm secrets dec $HELM_VALUES_PATH/$project/$context/secrets.yaml
-  secrets_path=$HELM_VALUES_PATH/$project/$context/secrets.yaml.dec
+if [[ $(ls $HELM_VALUES_PATH/$chart | grep "secrets.yaml") ]]; then
+  helm secrets dec $HELM_VALUES_PATH/$chart/"secrets.yaml"
+  secrets_path=$HELM_VALUES_PATH/$chart/secrets.yaml.dec
+elif [[ $(ls $HELM_VALUES_PATH/$chart/$context | grep "secrets.yaml") ]]; then
+  helm secrets dec $HELM_VALUES_PATH/$chart/$context/secrets.yaml
+  secrets_path=$HELM_VALUES_PATH/$chart/$context/secrets.yaml.dec
 else
   echo -e "There is no secrets for this project"
 fi
 
 # Determine overwrite helm-values path if it exists
 echo -e "$SEPERATOR"
-if [[ $(ls $HELM_VALUES_PATH/$project/$context | grep "values.yaml") ]]; then
-  overwrite_values_path=$HELM_VALUES_PATH/$project/$context/values.yaml
+
+if [[ $(ls $HELM_VALUES_PATH/$chart | grep "values.yaml") ]]; then
+  overwrite_values_path=$HELM_VALUES_PATH/$chart/values.yaml
+elif [[ $(ls $HELM_VALUES_PATH/$chart/$context | grep "values.yaml") ]]; then
+  overwrite_values_path=$HELM_VALUES_PATH/$chart/$context/values.yaml
 else
   echo -e "There is no overwrite values for this project"
 fi
@@ -79,4 +83,4 @@ if [[ ! -z $overwrite_values_path ]]; then
   args+=(-f $overwrite_values_path)
 fi
 
-helm install $HELM_CHARTS_PATH/$project ${args[@]}
+helm install $HELM_CHARTS_PATH/$chart ${args[@]}
