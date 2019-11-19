@@ -59,11 +59,11 @@ args=(
   --set image.tag=$sha
 )
 
-if [[ ${is_new_values,,} == "Y" ]]; then
+if [[ $is_new_values == "Y" ]]; then
   echo -e "$SEPERATOR"
   echo -e "Reusing Values from last release"
   args+=(--reuse-values)
-elif [[ ${is_new_values,,} == "N" ]]; then
+elif [[ $is_new_values == "N" ]]; then
   # Determine secrets path if it exists
   echo -e "$SEPERATOR"
   echo -e "Updating Values"
