@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## Ask for the administrator password upfront (pre-installations)
+## Prompt administrator password upfront (pre-installations)
 sudo -v
 
 ## Keep-alive: update existing `sudo` time stamp until script finishes
