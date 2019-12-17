@@ -173,12 +173,12 @@ alias kw='watch kubectl get pods --namespace'
 # ------------------------------
 # E-2. Kubectl (Kubernetes) - Functions
 # ------------------------------
-kube-ssh() {
+kssh() {
   pod=$(kubectl get pod --namespace $1 | grep -o "$2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | awk '{print $1}')
   kubectl --namespace $1 exec -it $pod /bin/bash
 }
 
-kube-log() {
+klog() {
   if [[ $# -lt 2 ]]; then
     pod=$(kubectl get --all-namespace pods | grep -o "$1-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+ " | head -1)
     kubectl logs $pod
@@ -188,7 +188,7 @@ kube-log() {
   fi
 }
 
-kube-tesseract() {
+ktesseract() {
   if [[ -z "$1" ]]; then
     echo "Please enter tesseract version"
   elif [[ "$1" == "v1" ]]; then
@@ -198,6 +198,12 @@ kube-tesseract() {
     pod=$(kubectl --context staging --namespace tesseract-v2 get pods | grep -o "tesseract-v2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1 )
     kubectl --context staging --namespace tesseract-v2 exec -it $pod /bin/bash
   fi
+}
+
+kgss() {
+  kubectl --namespace $1 get secrets $2 -ojsonpath="{.data.values\.yaml}" | \
+    base64 --decode | \
+    bat -l yaml
 }
 
 # ----------------------
