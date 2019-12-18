@@ -97,7 +97,7 @@ service-console() {
 }
 
 # ----------------------
-# C. Git - Alias
+# C-1. Git - Alias
 # ----------------------
 alias ga='git add'
 alias gaa='git add .'
@@ -134,6 +134,14 @@ alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash save'
 alias gf='git fetch'
+
+# ----------------------
+# C-2. Git - Functions
+# ----------------------
+gbdd() {
+  git branch -D $1 && \
+  git push origin --delete $1
+}
 
 # ------------------------------
 # D. Bundle (Ruby)
