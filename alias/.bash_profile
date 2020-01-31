@@ -1,36 +1,36 @@
 # ----------------------
 # A. Useful Hack Alias
 # ----------------------
+alias chrome='/opt/google/chrome/chrome'
 alias edit-bp='code ~/.bash_profile'
 alias fuck='lsof -i tcp:4567 -i tcp:1979 -i tcp:1234 -i tcp:4888 -i tcp:4200 -i tcp:4201 -i tcp:1080 -i tcp:1025 -i tcp:6379 -i tcp:5432 -i tcp:8085 -i tcp:27017 | tr -s ' ' | tail -n+2 | cut -d' ' -f 2 | xargs kill'
-alias my-ip='curl http://ipecho.net/plain; echo'
-alias reboot='sudo /sbin/reboot'
-alias poweroff='sudo /sbin/poweroff'
 alias halt='sudo /sbin/halt'
+alias my-ip='curl http://ipecho.net/plain; echo'
+alias poweroff='sudo /sbin/poweroff'
+alias reboot='sudo /sbin/reboot'
 alias shutdown='sudo /sbin/shutdown'
-alias chrome='/opt/google/chrome/chrome'
 
 # ----------------------
 # B-1. General Commands
 # ----------------------
 # ls
-alias ls='ls -FG'
-alias ll='ls -la'
 alias l.='ls -d .* -G'
+alias ll='ls -la'
+alias ls='ls -FG'
 
 # cd
-alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
 alias .....='cd ../../../../'
+alias ....='cd ../../../../'
+alias ...='cd ../../../'
+alias ..='cd ..'
 
 # diff
 alias diff='colordiff'
 
 # time
 alias now='date +"%T"'
-alias nowtime=now
 alias nowdate='date +"%d-%m-%y"'
+alias nowtime=now
 
 # rm
 alias rm="rm -v"
@@ -106,24 +106,25 @@ alias gau='git add --update'
 alias gb='git branch'
 alias gbd='git branch --delete '
 alias gc='git commit'
-alias gcm='git commit --message'
 alias gcf='git commit --fixup'
+alias gcm='git commit --message'
 alias gco='git checkout'
 alias gcob='git checkout -b'
+alias gcod='git checkout develop'
 alias gcom='git checkout master'
 alias gcos='git checkout staging'
-alias gcod='git checkout develop'
 alias gd='git diff'
 alias gda='git diff HEAD'
+alias gf='git fetch'
 alias gi='git init'
-alias glg='git log --graph --oneline --decorate --all'
 alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
+alias glg='git log --graph --oneline --decorate --all'
 alias gm='git merge --no-ff'
 alias gma='git merge --abort'
 alias gmc='git merge --continue'
 alias gp='git pull'
-alias gpush='git push'
 alias gpr='git pull --rebase'
+alias gpush='git push'
 alias gr='git rebase'
 alias gs='git status'
 alias gss='git status --short'
@@ -133,7 +134,6 @@ alias gstd='git stash drop'
 alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash save'
-alias gf='git fetch'
 
 # ----------------------
 # C-2. Git - Functions
@@ -148,40 +148,41 @@ gbdd() {
 # ------------------------------
 alias b='bundle'
 alias be='bundle exec'
+alias ber-db-m='bundle exec rake db:migrate'
 alias ber='bundle exec rails'
 alias berc='bundle exec rails c'
 alias berg-m='bundle exec rails g migration'
-alias ber-db-m='bundle exec rake db:migrate'
 
 # ------------------------------
 # E-1. Kubectl (Kubernetes) - Alias
 # ------------------------------
 alias k='kubectl'
-alias kconfig='kubectl config view'
-alias kgctxt='kubectl config get-contexts'
 alias kcctxt='kubectl config current-context'
-alias kuctxt='kubectl config use-context'
-alias kg='kubectl get'
-alias kgs='kubectl get services'
-alias kgp='kubectl get pods'
-alias kgd='kubectl get deployment'
-alias kgn='kubectl get namespaces'
-alias kgvs='kubectl get volumesnapshots'
-alias kghr='kubectl get helmreleases'
-alias kgssec='kubectl get sealedsecrets'
+alias kconfig='kubectl config view'
+alias kd='kubectl delete'
+alias kdd='kubectl delete deployments'
 alias kdes='kubectl describe'
-alias kdesp='kubectl describe pod'
-alias kdess='kubectl describe service'
-alias kdesi='kubectl describe ingress'
 alias kdesd='kubectl describe deployments'
 alias kdeshr='kubectl describe helmrelease'
-alias kd='kubectl delete'
-alias kds='kubectl delete service'
-alias kdp='kubectl delete pod'
-alias kdn='kubectl delete namespaces'
-alias kdd='kubectl delete deployments'
+alias kdesi='kubectl describe ingress'
+alias kdesp='kubectl describe pod'
+alias kdess='kubectl describe service'
 alias kdhr='kubectl delete helmreleases'
+alias kdn='kubectl delete namespaces'
+alias kdp='kubectl delete pod'
+alias kds='kubectl delete service'
 alias kdssec='kubectl delete sealedsecrets'
+alias kg='kubectl get'
+alias kgctxt='kubectl config get-contexts'
+alias kgd='kubectl get deployment'
+alias kghr='kubectl get helmreleases'
+alias kgi='kubectl get ingress'
+alias kgn='kubectl get namespaces'
+alias kgp='kubectl get pods'
+alias kgs='kubectl get services'
+alias kgssec='kubectl get sealedsecrets'
+alias kgvs='kubectl get volumesnapshots'
+alias kuctxt='kubectl config use-context'
 alias kw='watch kubectl get pods --namespace'
 
 # ------------------------------
@@ -223,41 +224,41 @@ kgss() {
 # ----------------------
 # F-1. Helm - Alias
 # ----------------------
-alias helm-prod="helm --kube-context production"
-alias helm-staging="helm --kube-context staging"
 alias helm-d="helm delete --purge"
-alias helm-l="helm list --max"
 alias helm-h="helm history --max 10"
+alias helm-l="helm list --max"
+alias helm-prod="helm --kube-context production"
 alias helm-rb="helm rollback"
+alias helm-staging="helm --kube-context staging"
 
 # ----------------------
 # F-2. Helm Secrets - Alias
 # ----------------------
 alias helm-s-clean="helm secrets clean"
 alias helm-s-dec="helm secrets dec"
-alias helm-s-enc="helm secrets enc"
 alias helm-s-edit="helm secrets edit"
+alias helm-s-enc="helm secrets enc"
 
 # ----------------------
 # G. Gcloud - Alias
 # ----------------------
 alias gcl 'gcloud'
+alias gcl-c-create='gcloud container clusters create '
+alias gcl-c-delete='gcloud container clusters delete '
+alias gcl-c-info='gcloud container clusters describe '
+alias gcl-d-p="gcloud docker -- push"
+alias gcl-g-i='gcloud compute instances list'
 alias gcl-prod='gcloud container clusters get-credentials unii-prod-east --zone us-east4-a --project striped-buckeye-163915'
 alias gcl-staging='gcloud container clusters get-credentials unii-staging --zone us-east4-a --project unii-staging'
-alias gcl-c-delete='gcloud container clusters delete '
-alias gcl-c-create='gcloud container clusters create '
-alias gcl-c-info='gcloud container clusters describe '
-alias gcl-g-i='gcloud compute instances list'
-alias gcl-d-p="gcloud docker -- push"
 
 # ----------------------
 # H-1. Fluxctl - Alias
 # ----------------------
-alias flux='fluxctl'
-alias flux-l-w='fluxctl list workloads'
 alias flux-l-i='fluxctl list images'
-alias flux-s='fluxctl sync'
+alias flux-l-w='fluxctl list workloads'
 alias flux-r='fluxctl release'
+alias flux-s='fluxctl sync'
+alias flux='fluxctl'
 
 # ----------------------
 # H-2. Fluxctl - Functions
@@ -286,17 +287,17 @@ function flux-upgrade() {
 # I-1. Docker - Alias
 # ----------------------
 alias dk='docker'
-alias dkv='docker version'
-alias dkps='docker ps'
-alias dkpush='docker push'
-alias dkpull='docker pull'
-alias dktag='docker tag'
+alias dki='docker images'
 alias dkkill='docker kill'
+alias dkps='docker ps'
+alias dkpull='docker pull'
+alias dkpush='docker push'
 alias dkrm='docker rm'
 alias dkrmi='docker rmi'
 alias dkrun='docker run'
-alias dki='docker images'
 alias dks='docker services'
+alias dktag='docker tag'
+alias dkv='docker version'
 
 # ----------------------
 # I-2. Docker - Function
