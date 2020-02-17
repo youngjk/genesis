@@ -1,9 +1,9 @@
 # ----------------------
-# A. Useful Hack Alias
+# Useful Hack Alias
 # ----------------------
 alias chrome='/opt/google/chrome/chrome'
 alias edit-bp='code ~/.bash_profile'
-alias fuck='lsof -i tcp:4567 -i tcp:1979 -i tcp:1234 -i tcp:4888 -i tcp:4200 -i tcp:4201 -i tcp:1080 -i tcp:1025 -i tcp:6379 -i tcp:5432 -i tcp:8085 -i tcp:27017 | tr -s ' ' | tail -n+2 | cut -d' ' -f 2 | xargs kill'
+# alias fuck='lsof -i tcp:4567 -i tcp:1979 -i tcp:1234 -i tcp:4888 -i tcp:4200 -i tcp:4201 -i tcp:1080 -i tcp:1025 -i tcp:6379 -i tcp:5432 -i tcp:8085 -i tcp:27017 | tr -s ' ' | tail -n+2 | cut -d' ' -f 2 | xargs kill'
 alias halt='sudo /sbin/halt'
 alias my-ip='curl http://ipecho.net/plain; echo'
 alias poweroff='sudo /sbin/poweroff'
@@ -11,12 +11,18 @@ alias reboot='sudo /sbin/reboot'
 alias shutdown='sudo /sbin/shutdown'
 
 # ----------------------
-# B-1. General Commands
+# Sysadmin - Alias
+# ----------------------
+alias disk='df -h'
+alias cpu='l'
+
+# ----------------------
+# General Commands
 # ----------------------
 # ls
-alias l.='ls -d .* -G'
-alias ll='ls -la'
 alias ls='ls -FG'
+alias lt='du -sh * | sort -h'
+alias left='ls -t -l'
 
 # cd
 alias .....='cd ../../../../'
@@ -46,8 +52,14 @@ mkcd() {
   mkdir -p "$1" && cd "$1"
 }
 
+# bash command history grep
+alias hg='history|grep'
+
+# Count files in current dir
+alias count='find . -type f | wc -l'
+
 # ----------------------
-# B-2. General Functions
+# General Functions
 # ----------------------
 service-console() {
   if [[ "$1" == "discover" ]]; then
@@ -97,7 +109,7 @@ service-console() {
 }
 
 # ----------------------
-# C-1. Git - Alias
+# Git - Alias
 # ----------------------
 alias ga='git add'
 alias gaa='git add .'
@@ -136,7 +148,7 @@ alias gstp='git stash pop'
 alias gsts='git stash save'
 
 # ----------------------
-# C-2. Git - Functions
+# Git - Functions
 # ----------------------
 gbdd() {
   git branch -D $1 && \
@@ -144,7 +156,7 @@ gbdd() {
 }
 
 # ------------------------------
-# D. Bundle (Ruby)
+# Bundle (Ruby)
 # ------------------------------
 alias b='bundle'
 alias be='bundle exec'
@@ -154,7 +166,7 @@ alias berc='bundle exec rails c'
 alias berg-m='bundle exec rails g migration'
 
 # ------------------------------
-# E-1. Kubectl (Kubernetes) - Alias
+# Kubectl (Kubernetes) - Alias
 # ------------------------------
 alias k='kubectl'
 alias kcctxt='kubectl config current-context'
@@ -186,7 +198,7 @@ alias kuctxt='kubectl config use-context'
 alias kw='watch kubectl get pods --namespace'
 
 # ------------------------------
-# E-2. Kubectl (Kubernetes) - Functions
+# Kubectl (Kubernetes) - Functions
 # ------------------------------
 kssh() {
   pod=$(kubectl get pod --namespace $1 | grep -o "$2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | awk '{print $1}')
@@ -222,7 +234,7 @@ kgss() {
 }
 
 # ----------------------
-# F-1. Helm - Alias
+# Helm - Alias
 # ----------------------
 alias helm-d="helm delete --purge"
 alias helm-h="helm history --max 10"
@@ -232,7 +244,7 @@ alias helm-rb="helm rollback"
 alias helm-staging="helm --kube-context staging"
 
 # ----------------------
-# F-2. Helm Secrets - Alias
+# Helm Secrets - Alias
 # ----------------------
 alias helm-s-clean="helm secrets clean"
 alias helm-s-dec="helm secrets dec"
@@ -240,9 +252,9 @@ alias helm-s-edit="helm secrets edit"
 alias helm-s-enc="helm secrets enc"
 
 # ----------------------
-# G. Gcloud - Alias
+# Gcloud - Alias
 # ----------------------
-alias gcl 'gcloud'
+alias gcl='gcloud'
 alias gcl-c-create='gcloud container clusters create '
 alias gcl-c-delete='gcloud container clusters delete '
 alias gcl-c-info='gcloud container clusters describe '
@@ -252,7 +264,7 @@ alias gcl-prod='gcloud container clusters get-credentials unii-prod-east --zone 
 alias gcl-staging='gcloud container clusters get-credentials unii-staging --zone us-east4-a --project unii-staging'
 
 # ----------------------
-# H-1. Fluxctl - Alias
+# Fluxctl - Alias
 # ----------------------
 alias flux-l-i='fluxctl list images'
 alias flux-l-w='fluxctl list workloads'
@@ -261,7 +273,7 @@ alias flux-s='fluxctl sync'
 alias flux='fluxctl'
 
 # ----------------------
-# H-2. Fluxctl - Functions
+# Fluxctl - Functions
 # ----------------------
 function flux-list-hr() {
   fluxctl list-images --namespace $1 --workload=$1:helmrelease/$2
@@ -284,7 +296,7 @@ function flux-upgrade() {
 }
 
 # ----------------------
-# I-1. Docker - Alias
+# Docker - Alias
 # ----------------------
 alias dk='docker'
 alias dki='docker images'
@@ -300,7 +312,7 @@ alias dktag='docker tag'
 alias dkv='docker version'
 
 # ----------------------
-# I-2. Docker - Function
+# Docker - Function
 # ----------------------
 dkcleani() { docker rmi -f $(docker images -a -q); }
 dkcleanc() { docker rm -f $(docker ps -a -q); }
