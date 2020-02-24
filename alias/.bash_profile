@@ -77,13 +77,13 @@ service-console() {
     if [[ -z "$2" ]]; then
       echo "Please enter a namespace"
     elif [[ "$2" == "staging" ]]; then
-      pod=$(kubectl --context staging get pods | grep -o "discover-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      pod=$(kubectl --context staging get pods | grep -oE "discover-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{5}\b" | head -1)
       kubectl --context staging exec $pod -it -- bash -il
     elif [[ "$2" == "production" ]]; then
-      pod=$(kubectl --context production get pods | grep -o "discover-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      pod=$(kubectl --context production get pods | grep -oE "discover-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{5}\b" | head -1)
       kubectl --context production exec $pod -it -- bash -il
     else
-      local pod=$(kubectl --context staging --namespace $2 get pods | grep -o "$2-discover-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      local pod=$(kubectl --context staging --namespace $2 get pods | grep -oE "$2-discover-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{5}\b" | head -1)
       kubectl --context staging --namespace $2 exec $pod -it -- bash -il
     fi
   elif [[ "$1" == "web" ]]; then
@@ -98,20 +98,20 @@ service-console() {
       ./attach.sh web production bundle exec rails c
       cd -
     else
-      local pod=$(kubectl --context staging --namespace $2 get pods | grep -o "$2-web-api-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+")
+      local pod=$(kubectl --context staging --namespace $2 get pods | grep -oE "$2-web-api-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{5}\b")
       kubectl --context staging --namespace $2 exec $pod -it -- bash -il
     fi
   elif [[ "$1" == "boxoffice" ]]; then
     if [[ -z "$2" ]]; then
       echo "Please enter a namespace"
     elif [[ "$2" == "staging" ]]; then
-      pod=$(kubectl --context staging get pods | grep -o "boxoffice-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      pod=$(kubectl --context staging get pods | grep -oE "boxoffice-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{5}\b" | head -1)
       kubectl --context staging exec $pod -it -- bash -il
     elif [[ "$2" == "production" ]]; then
-      pod=$(kubectl --context production get pods | grep -o "boxoffice-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      pod=$(kubectl --context production get pods | grep -oE "boxoffice-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{5}\b" | head -1)
       kubectl --context production exec $pod -it -- bash -il
     else
-      local pod=$(kubectl --context staging --namespace $2 get pods | grep -o "$2-boxoffice-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1)
+      local pod=$(kubectl --context staging --namespace $2 get pods | grep -oE "$2-boxoffice-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{5}\b" | head -1)
       kubectl --context staging --namespace $2 exec $pod -it -- bash -il
     fi
   else
@@ -212,30 +212,23 @@ alias kw='watch kubectl get pods --namespace'
 # Kubectl (Kubernetes) - Functions
 # ------------------------------
 kssh() {
-  pod=$(kubectl get pod --namespace $1 | grep -o "$2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | awk '{print $1}')
+  pod=$(kubectl get pod -n $1 | grep -oE "$2-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{5}\b" | awk '{print $1}')
   kubectl --namespace $1 exec -it $pod /bin/bash
 }
 
 klog() {
   if [[ $# -lt 2 ]]; then
-    pod=$(kubectl get --all-namespace pods | grep -o "$1-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+ " | head -1)
+    pod=$(kubectl get --all-namespace pods | grep -oE "$1-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{5}\b" | head -1)
     kubectl logs $pod
   elif [[ $# -eq 2 ]]; then
-    pod=$(kubectl get pods -n $1 | grep -o "$2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+ " | head -1)
+    pod=$(kubectl get pods -n $1 | grep -oE "$2-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{5}\b" | head -1)
     kubectl logs -n $1 $pod
   fi
 }
 
 ktesseract() {
-  if [[ -z "$1" ]]; then
-    echo "Please enter tesseract version"
-  elif [[ "$1" == "v1" ]]; then
-    pod=$(kubectl --context staging --namespace default get pods | grep -o "tesseract-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1 )
-    kubectl --context staging --namespace default exec -it $pod /bin/bash
-  elif [[ "$1" == "v2" ]]; then
-    pod=$(kubectl --context staging --namespace tesseract-v2 get pods | grep -o "tesseract-v2-[a-zA-Z0-9]\+-[a-zA-Z0-9]\+" | head -1 )
-    kubectl --context staging --namespace tesseract-v2 exec -it $pod /bin/bash
-  fi
+  pod=$(kubectl --context staging -n tesseract-v2 get pods | grep -oE "tesseract-v2-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{5}\b" | head -1 )
+  kubectl --context staging --namespace tesseract-v2 exec -it $pod /bin/bash
 }
 
 kgss() {
