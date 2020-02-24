@@ -8,7 +8,7 @@ alias halt='sudo /sbin/halt'
 alias poweroff='sudo /sbin/poweroff'
 alias reboot='sudo /sbin/reboot'
 alias shutdown='sudo /sbin/shutdown'
-alias passgen='openssl rand -base64 20'
+alias passgen='openssl rand -base64'
 
 # ----------------------
 # Sysadmin - Alias
