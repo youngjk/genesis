@@ -5,16 +5,24 @@ alias chrome='/opt/google/chrome/chrome'
 alias edit-bp='code ~/.bash_profile'
 # alias fuck='lsof -i tcp:4567 -i tcp:1979 -i tcp:1234 -i tcp:4888 -i tcp:4200 -i tcp:4201 -i tcp:1080 -i tcp:1025 -i tcp:6379 -i tcp:5432 -i tcp:8085 -i tcp:27017 | tr -s ' ' | tail -n+2 | cut -d' ' -f 2 | xargs kill'
 alias halt='sudo /sbin/halt'
-alias my-ip='curl http://ipecho.net/plain; echo'
 alias poweroff='sudo /sbin/poweroff'
 alias reboot='sudo /sbin/reboot'
 alias shutdown='sudo /sbin/shutdown'
+alias passgen='openssl rand -base64 20'
 
 # ----------------------
 # Sysadmin - Alias
 # ----------------------
 alias disk='df -h'
 alias cpu='l'
+
+# ----------------------
+# Network - Alias
+# ----------------------
+alias ping='ping -c 5'
+alias speed='speedtest-cli --server 2406 --simple'
+alias ipe='curl ipinfo.io/ip'
+alias ipi='ipconfig getifaddr en0'
 
 # ----------------------
 # General Commands
@@ -41,6 +49,9 @@ alias nowtime=now
 # rm
 alias rm="rm -v"
 alias rmd="rm -rfv"
+
+# grep
+alias grep='grep --color=auto'
 
 # browser
 chrome() {
