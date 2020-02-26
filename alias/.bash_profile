@@ -266,6 +266,15 @@ alias gcl-d-p="gcloud docker -- push"
 alias gcl-g-i='gcloud compute instances list'
 alias gcl-prod='gcloud container clusters get-credentials unii-prod-east --zone us-east4-a --project striped-buckeye-163915'
 alias gcl-staging='gcloud container clusters get-credentials unii-staging --zone us-east4-a --project unii-staging'
+alias gclkms='gcloud kms'
+
+# ----------------------
+# Gcloud - Functions
+# ----------------------
+gclkmskr() {
+  gcloud kms keyrings list \
+    --location global
+}
 
 # ----------------------
 # Fluxctl - Alias
@@ -279,11 +288,11 @@ alias flux='fluxctl'
 # ----------------------
 # Fluxctl - Functions
 # ----------------------
-function flux-list-hr() {
+flux-list-hr() {
   fluxctl list-images --namespace $1 --workload=$1:helmrelease/$2
 }
 
-function flux-upgrade() {
+flux-upgrade() {
   version=0.11.0
 
   if [[ $# -ge 2 ]]; then
