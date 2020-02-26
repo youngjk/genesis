@@ -314,6 +314,7 @@ alias dkrun='docker run'
 alias dks='docker services'
 alias dktag='docker tag'
 alias dkv='docker version'
+alias dkb='docker build'
 
 # ----------------------
 # Docker - Function
@@ -326,4 +327,12 @@ dk-exec() { docker exec -it $1 /bin/bash; }
 dkclean() {
   docker rmi -f $(docker images -a -q) && \
   docker rm -f $(docker ps -a -q)
+}
+
+# Arg: dkbuild <Dockerfile> <tag> <dir>
+dkbuild() {
+  docker build \
+    -f $1 \
+    -t $2 \
+    $3
 }
