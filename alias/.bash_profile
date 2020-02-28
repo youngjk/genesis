@@ -276,6 +276,17 @@ gclkmskr() {
     --location global
 }
 
+gclkmskc() {
+  gcloud kms keyrings create $1 \
+    --location global \
+    --project striped-buckeye-163915 &&
+  glcoud kms keys create $2 \
+    --location global \
+    --project striped-buckeye-163915 \
+    --keyring $1 \
+    --purpose encryption
+}
+
 # ----------------------
 # Fluxctl - Alias
 # ----------------------
