@@ -166,6 +166,16 @@ gbdd() {
   git push origin --delete $1
 }
 
+gbclean() {
+  git branch -r --merged origin/master | \
+  grep origin | \
+  grep -v '>' | \
+  grep -v master | \
+  xargs -L1 | \
+  cut -d "/" -f2- | \
+  xargs git push origin --delete
+}
+
 # ------------------------------
 # Bundle (Ruby)
 # ------------------------------
