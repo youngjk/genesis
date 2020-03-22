@@ -359,6 +359,15 @@ dkclean() {
   docker rm -f $(docker ps -a -q)
 }
 
+# Docker Pubilsh: build => tag => push
+# Params:  dkpublish <Dockerfile-Path> <repo:tag> <build-context-dir>
+dkpublish() {
+  docker build $3 \
+    -f $1 \
+    -t $2 && \
+  docker push $2
+}
+
 # Arg: dkbuild <Dockerfile> <tag> <dir>
 dkbuild() {
   docker build \
