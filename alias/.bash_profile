@@ -13,8 +13,11 @@ alias passgen='openssl rand -base64'
 # ----------------------
 # Sysadmin - Alias
 # ----------------------
-alias disk='df -h'
+alias kernel='uname -a'
+alias ds='df -h'
+alias dsd='du -sh'
 alias cpu='l'
+alias lc='launchctl'
 
 # ----------------------
 # Network - Alias
