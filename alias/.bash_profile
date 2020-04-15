@@ -378,3 +378,18 @@ dkbuild() {
     -t $2 \
     $3
 }
+
+# ----------------------
+# Terraform - Alias
+# ----------------------
+alias tf='terraform'
+alias tfa='terraform apply'
+alias tfs='terraform show'
+alias tfd='terraform destroy'
+alias tfc='terraform console'
+alias tff='terraform fmt'
+alias tfg='terraform graph'
+alias tfim='terraform import'
+alias tfin='terraform init'
+alias tfo='terraform output'
+alias tfp='terraform plan'
