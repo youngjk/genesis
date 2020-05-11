@@ -14,7 +14,9 @@ if test ! $(which brew); then
 fi
 # Update Homebrew andd packages to latest version
 brew update
-brew upgrade --all
+brew upgrade
+brew cleanup -s
+brew doctor
 
 ## GNU core utilities (OSX => Outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
@@ -34,14 +36,6 @@ echo "Adding the newly installed shell to the list of allowed shells"
 sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
 chsh -s /usr/local/bin/bash
 
-## OSX tools (Latest versions)
-brew install vim --override-system-vi
-brew install homebrew/php/php55 --with-gmp
-brew install \
-  homebrew/dupes/grep \
-  homebrew/dupes/openssh \
-  homebrew/dupes/screen
-
 ## Programming Language Setup
 # Golang
 brew install go
@@ -53,39 +47,10 @@ brew cask install java
 brew install \
   ruby-build \
   rbenv
-LINE='eval "$(rbenv init -)"'
-grep -q "$LINE" ~/.extra || echo "$LINE" >> ~/.extra
-
-## CTF tools (https://github.com/ctfs/write-ups)
-brew install \
-  aircrack-ng \
-  bfg \
-  binutils \
-  binwalk \
-  cifer \
-  dex2jar \
-  dns2tcp \
-  fcrackzip \
-  foremost \
-  hashpump \
-  homebrew/x11/xpdf \
-  hydra \
-  john \
-  knock \
-  netpbm \
-  nmap \
-  pngcheck \
-  socat \
-  sqlmap \
-  tcpflow \
-  tcpreplay \
-  tcptrace \
-  ucspi-tcp \
-  xz
 
 ## Useful/Essential binaries
-brew install imagemagick --with-webp
 brew install \
+  imagemagick \
   ack \
   dark-mode \
   libffi \
@@ -103,8 +68,6 @@ brew install \
   tree \
   webkit2png \
   zopfli
-# Install `wget` with IRI support.
-brew install wget --with-iri
 
 ## GIT
 brew install \
@@ -112,21 +75,15 @@ brew install \
   git-extras \
   git-flow \
   git-lfs \
-  hub
-
-## Lxml and Libxslt
-brew install libxml2 libxslt
-brew link libxml2 --force
-brew link libxslt --force
+  hub \
+  github/gh/gh
 
 ## Step Cask Installations (Applications)
 # Text editors
 brew cask install --appdir="/Applications" \
-  atom \
-  sublime-text \
   visual-studio-code \
   iterm2
-# Browsers
+Browsers
 brew cask install --appdir="/Applications" \
   google-chrome \
   firefox
@@ -140,12 +97,8 @@ brew cask install --appdir="/Applications" \
 brew cask install --appdir="/Applications" \
   dropbox \
   evernote \
-  1password \
-  sourcetree
-# MISC
-brew cask install --appdir="/Applications" \
-  virtualbox \
-  xquartz
+  sourcetree \
+  1password
 
 ## Quick Look/View plugins https://github.com/sindresorhus/quick-look-plugins
 brew cask install \
@@ -155,7 +108,7 @@ brew cask install \
   qlmarkdown \
   qlprettypatch \
   qlstephen \
-  qlvideo
+  qlvideo \
   quicklook-csv \
   quicklook-json \
   quicklookase \
