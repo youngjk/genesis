@@ -69,6 +69,15 @@ brew install \
   webkit2png \
   zopfli
 
+## DevOps
+brew install \
+  docker \
+  terraform \
+  helm
+
+## GCLOUD
+curl https://sdk.cloud.google.com | bash
+
 ## GIT
 brew install \
   git \
