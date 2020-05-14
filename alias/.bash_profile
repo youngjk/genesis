@@ -277,8 +277,6 @@ alias gcl-c-delete='gcloud container clusters delete '
 alias gcl-c-info='gcloud container clusters describe '
 alias gcl-d-p="gcloud docker -- push"
 alias gcl-g-i='gcloud compute instances list'
-alias gcl-prod='gcloud container clusters get-credentials unii-prod-east --zone us-east4-a --project striped-buckeye-163915'
-alias gcl-staging='gcloud container clusters get-credentials unii-staging --zone us-east4-a --project unii-staging'
 alias gclkms='gcloud kms'
 
 # ----------------------
@@ -298,6 +296,16 @@ gclkmskc() {
     --project striped-buckeye-163915 \
     --keyring $1 \
     --purpose encryption
+}
+
+gcl-ctxt-legacy() {
+  gcloud config set project verticalscope-production && \
+  gcloud container clusters get-credentials -z us-central1-b web-p0
+}
+
+gcl-ctxt-cali() {
+  gcloud config set project california-production && \
+  gcloud container clusters get-credentials -z us-central1-b prod
 }
 
 # ----------------------
