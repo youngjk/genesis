@@ -401,3 +401,10 @@ alias tfim='terraform import'
 alias tfin='terraform init'
 alias tfo='terraform output'
 alias tfp='terraform plan'
+
+# ----------------------
+# Gatsby - Alias
+# ----------------------
+alias gb='gatsby'
+alias gb-dev='gatsby develop'
+alias gb-s='gatsby serve'
