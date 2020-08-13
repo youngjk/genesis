@@ -405,6 +405,6 @@ alias tfp='terraform plan'
 # ----------------------
 # Gatsby - Alias
 # ----------------------
-alias gb='gatsby'
-alias gb-dev='gatsby develop'
-alias gb-s='gatsby serve'
+alias gat='gatsby'
+alias gat-dev='gatsby develop'
+alias gat-s='gatsby serve'
