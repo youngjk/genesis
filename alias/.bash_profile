@@ -279,7 +279,12 @@ alias gcl-c-delete='gcloud container clusters delete '
 alias gcl-c-info='gcloud container clusters describe '
 alias gcl-d-p="gcloud docker -- push"
 alias gcl-g-i='gcloud compute instances list'
-alias gclkms='gcloud kms'
+alias gcl-kms='gcloud kms'
+alias gcl-dns='gcloud dns'
+alias gcl-dns-mz='gcloud dns managed-zones'
+alias gcl-dns-rs='gcloud dns record-sets'
+alias gcl-comp='gcloud compute'
+alias gcl-comp-ins='gcloud compute instances'
 
 # ----------------------
 # Gcloud - Functions
