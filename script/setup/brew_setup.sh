@@ -67,7 +67,8 @@ brew install \
   ssh-copy-id \
   tree \
   webkit2png \
-  zopfli
+  zopfli \
+  htop
 
 ## DevOps
 brew install \
