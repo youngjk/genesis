@@ -285,6 +285,7 @@ alias gcl-dns-mz='gcloud dns managed-zones'
 alias gcl-dns-rs='gcloud dns record-sets'
 alias gcl-comp='gcloud compute'
 alias gcl-comp-ins='gcloud compute instances'
+alias gcl-update='gcloud components update --quiet'
 
 # ----------------------
 # Gcloud - Functions
