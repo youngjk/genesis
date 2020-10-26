@@ -37,16 +37,11 @@ sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
 chsh -s /usr/local/bin/bash
 
 ## Programming Language Setup
-# Golang
-brew install go
-# Python
-brew install python python3
-# Java
-brew cask install java
-# ruby-build and rbenv
+# Version Management for Golang / Python / Ruby
 brew install \
-  ruby-build \
-  rbenv
+  goenv \
+  pyenv \
+  rbenv 
 
 ## Useful/Essential binaries
 brew install \
@@ -73,7 +68,7 @@ brew install \
 ## DevOps
 brew install \
   docker \
-  terraform \
+  tfenv \
   helm
 
 ## GCLOUD
@@ -82,10 +77,6 @@ curl https://sdk.cloud.google.com | bash
 ## GIT
 brew install \
   git \
-  git-extras \
-  git-flow \
-  git-lfs \
-  hub \
   github/gh/gh
 
 ## Step Cask Installations (Applications)
