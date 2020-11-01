@@ -304,13 +304,13 @@ gclkmskr() {
 }
 
 gclkmskc() {
-  gcloud kms keyrings create $1 \
+  gcloud kms keyrings create $2 \
     --location global \
-    --project striped-buckeye-163915 &&
-  glcoud kms keys create $2 \
+    --project $1 &&
+  glcoud kms keys create $3 \
     --location global \
-    --project striped-buckeye-163915 \
-    --keyring $1 \
+    --project $1 \
+    --keyring $2 \
     --purpose encryption
 }
 
