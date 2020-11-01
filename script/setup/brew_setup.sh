@@ -63,7 +63,8 @@ brew install \
   tree \
   webkit2png \
   zopfli \
-  htop
+  htop \
+  dnstop
 
 ## DevOps
 brew install \
