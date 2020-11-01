@@ -225,8 +225,11 @@ alias kgp='kubectl get pods'
 alias kgs='kubectl get services'
 alias kgssec='kubectl get sealedsecrets'
 alias kgvs='kubectl get volumesnapshots'
+alias kge='kubectl get events'
 alias kuctxt='kubectl config use-context'
 alias kw='watch kubectl get pods --namespace'
+alias ktn='kubectl top nodes'
+alias kpf='kubectl port-forward'
 
 # ------------------------------
 # Kubectl (Kubernetes) - Functions
