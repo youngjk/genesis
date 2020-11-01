@@ -18,6 +18,7 @@ alias ds='df -h'
 alias dsd='du -sh'
 alias cpu='l'
 alias lc='launchctl'
+alias top='htop'
 
 # ----------------------
 # Network - Alias
@@ -71,6 +72,10 @@ alias hg='history|grep'
 
 # Count files in current dir
 alias count='find . -type f | wc -l'
+
+# Files
+alias untar='tar -zxvf'
+alias wget='wget -c'
 
 # ----------------------
 # General Functions
