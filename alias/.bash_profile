@@ -416,3 +416,14 @@ alias tfp='terraform plan'
 alias gat='gatsby'
 alias gat-dev='gatsby develop'
 alias gat-s='gatsby serve'
+
+# ----------------------
+# PATHS
+# ----------------------
+# GOLANG
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+export GOENV_VERSION=1.15.3
